@@ -19,7 +19,7 @@ const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"https://www.hkwarnings.com/observatoryWarnings/logFile.php"]];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"https://localhost:3000/logs"]];
     [request setHTTPMethod:@"POST"];
     
     logFileManager = [[CompressingAndUploadingLogFileManager alloc] initWithUploadRequest:request];
