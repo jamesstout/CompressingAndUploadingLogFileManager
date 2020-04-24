@@ -7,17 +7,9 @@
 //
 
 #import "JCSAppDelegate.h"
-#import <CocoaLumberjack/CocoaLumberjack.h>
-#import <CompressingAndUploadingLogFileManager/CompressingAndUploadingLogFileManager.h>
+
 
 const DDLogLevel ddLogLevel = DDLogLevelVerbose;
-
-@interface JCSAppDelegate ()
-
-@property (strong, nonatomic) DDFileLogger *fileLogger;
-@property (strong, nonatomic) CompressingAndUploadingLogFileManager *logFileManager;
-
-@end
 
 @implementation JCSAppDelegate
 
