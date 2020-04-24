@@ -1,0 +1,33 @@
+PODS:
+  - CocoaLumberjack (3.6.1):
+    - CocoaLumberjack/Core (= 3.6.1)
+  - CocoaLumberjack/Core (3.6.1)
+  - CompressingAndUploadingLogFileManager (0.1.0):
+    - CocoaLumberjack
+  - Expecta (1.0.6)
+  - Specta (1.0.7)
+
+DEPENDENCIES:
+  - CompressingAndUploadingLogFileManager (from `../`)
+  - Expecta
+  - Specta
+
+SPEC REPOS:
+  trunk:
+    - CocoaLumberjack
+    - Expecta
+    - Specta
+
+EXTERNAL SOURCES:
+  CompressingAndUploadingLogFileManager:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  CocoaLumberjack: b17ae15142558d08bbacf69775fa10c4abbebcc9
+  CompressingAndUploadingLogFileManager: 6548c09a25b66b1aec8da8f32c675eb1be4ba7f5
+  Expecta: 3b6bd90a64b9a1dcb0b70aa0e10a7f8f631667d5
+  Specta: 3e1bd89c3517421982dc4d1c992503e48bd5fe66
+
+PODFILE CHECKSUM: ceb5e7379eeb3755ac88bbb46fa19de7777b3e6e
+
+COCOAPODS: 1.9.1

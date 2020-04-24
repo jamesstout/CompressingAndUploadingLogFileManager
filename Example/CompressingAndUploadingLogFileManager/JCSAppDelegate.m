@@ -7,13 +7,63 @@
 //
 
 #import "JCSAppDelegate.h"
+#import <CocoaLumberjack/CocoaLumberjack.h>
+#import <CompressingAndUploadingLogFileManager/CompressingAndUploadingLogFileManager.h>
+
+const DDLogLevel ddLogLevel = DDLogLevelVerbose;
+
+@interface JCSAppDelegate ()
+
+@property (strong, nonatomic) DDFileLogger *fileLogger;
+@property (strong, nonatomic) CompressingAndUploadingLogFileManager *logFileManager;
+
+@end
 
 @implementation JCSAppDelegate
+
+@synthesize fileLogger, logFileManager;
+
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"https://www.hkwarnings.com/observatoryWarnings/logFile.php"]];
+    [request setHTTPMethod:@"POST"];
+    
+    logFileManager = [[CompressingAndUploadingLogFileManager alloc] initWithUploadRequest:request];
+    
+    fileLogger = [[DDFileLogger alloc] initWithLogFileManager:logFileManager];
+    
+    fileLogger.maximumFileSize  = 1024 * 100;  // 1 KB
+    fileLogger.rollingFrequency =   60 * 1;  // 1 Minute
+    
+    fileLogger.logFileManager.maximumNumberOfLogFiles = 4;
+    
+    [DDLog addLogger:[DDOSLogger sharedInstance]];
+    [DDLog addLogger:fileLogger];
+    
+    [NSTimer scheduledTimerWithTimeInterval:1.0
+                                     target:self
+                                   selector:@selector(writeLogMessages:)
+                                   userInfo:nil
+                                    repeats:YES];
+    
+    
     return YES;
+}
+
+- (void)writeLogMessages:(NSTimer *)aTimer
+{
+    DDLogVerbose(@"I like cheese");
+}
+
+- (void)application:(UIApplication *)application handleEventsForBackgroundURLSession:(NSString *)identifier completionHandler:(void (^)(void))completionHandler
+{
+    DDLogVerbose(@"BackgroundUploadLogFileManager: handleEventsForBackgroundURLSession Appdel");
+    
+    if ([[self.logFileManager sessionIdentifier] isEqualToString:identifier]) {
+        [self.logFileManager handleEventsForBackgroundURLSession:completionHandler];
+    }
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application

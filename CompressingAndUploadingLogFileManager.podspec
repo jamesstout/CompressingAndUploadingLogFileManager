@@ -9,7 +9,7 @@
 Pod::Spec.new do |s|
   s.name             = 'CompressingAndUploadingLogFileManager'
   s.version          = '0.1.0'
-  s.summary          = 'A short description of CompressingAndUploadingLogFileManager.'
+  s.summary          = 'Remote logging via NSURLSession transfer to upload compressed CocoaLumberjack logger logs to an HTTP server'
 
 # This description is used to generate tags and improve search results.
 #   * Think: What does it do? Why did you write it? What is the focus?
@@ -22,11 +22,10 @@ TODO: Add long description of the pod here.
                        DESC
 
   s.homepage         = 'https://github.com/jamesstout/CompressingAndUploadingLogFileManager'
-  # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'jamesstout' => 'stoutyhk@gmail.com' }
   s.source           = { :git => 'https://github.com/jamesstout/CompressingAndUploadingLogFileManager.git', :tag => s.version.to_s }
-  # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
+  s.social_media_url = 'https://twitter.com/stoutyhk'
 
   s.ios.deployment_target = '8.0'
 
@@ -36,7 +35,6 @@ TODO: Add long description of the pod here.
   #   'CompressingAndUploadingLogFileManager' => ['CompressingAndUploadingLogFileManager/Assets/*.png']
   # }
 
-  # s.public_header_files = 'Pod/Classes/**/*.h'
-  # s.frameworks = 'UIKit', 'MapKit'
-  # s.dependency 'AFNetworking', '~> 2.3'
+  s.public_header_files = 'CompressingAndUploadingLogFileManager/Classes/**/*.h'
+  s.dependency 'CocoaLumberjack'
 end
