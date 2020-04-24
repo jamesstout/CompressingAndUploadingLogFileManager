@@ -18,7 +18,7 @@ Pod::Spec.new do |s|
 #   * Finally, don't worry about the indent, CocoaPods strips it!
 
   s.description      = <<-DESC
-TODO: Add long description of the pod here.
+A mashup of the example CompressingLogFileManager in CocoaLumberjack and BackgroundUpload-CocoaLumberjack: https://github.com/pushd/BackgroundUpload-CocoaLumberjack. Once the log file is compressed, it's uploaded to an HTTP server, the deleted.
                        DESC
 
   s.homepage         = 'https://github.com/jamesstout/CompressingAndUploadingLogFileManager'
