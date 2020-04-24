@@ -51,7 +51,7 @@ const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 
 - (void)application:(UIApplication *)application handleEventsForBackgroundURLSession:(NSString *)identifier completionHandler:(void (^)(void))completionHandler
 {
-    DDLogVerbose(@"BackgroundUploadLogFileManager: handleEventsForBackgroundURLSession Appdel");
+    DDLogVerbose(@"CompressingAndUploadingLogFileManager: handleEventsForBackgroundURLSession Appdel");
     
     if ([[self.logFileManager sessionIdentifier] isEqualToString:identifier]) {
         [self.logFileManager handleEventsForBackgroundURLSession:completionHandler];

@@ -17,7 +17,7 @@
 // So we use primitive logging macros around NSLog.
 // We maintain the NS prefix on the macros to be explicit about the fact that we're using NSLog.
 
-#define LOG_LEVEL 4
+#define LOG_LEVEL 2
 
 #define NSLogError(frmt, ...)    do{ if(LOG_LEVEL >= 1) NSLog(frmt, ##__VA_ARGS__); } while(0)
 #define NSLogWarn(frmt, ...)     do{ if(LOG_LEVEL >= 2) NSLog(frmt, ##__VA_ARGS__); } while(0)
@@ -590,7 +590,7 @@
 // retries any files that may have errored
 - (void)uploadArchivedFile:(DDLogFileInfo *)logFile
 {
-    NSLogVerbose(@"BackgroundUploadLogFileManager uploadArchivedFile: %@", logFile.filePath);
+    NSLogVerbose(@"CompressingAndUploadingLogFileManager uploadArchivedFile: %@", logFile.filePath);
     
     dispatch_async([DDLog loggingQueue], ^{
         [self.session getTasksWithCompletionHandler:^(NSArray *dataTasks, NSArray *uploadTasks, NSArray *downloadTasks) {
@@ -627,12 +627,12 @@
     [request setValue:[UIDevice.currentDevice.identifierForVendor.UUIDString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLHostAllowedCharacterSet]] forHTTPHeaderField:@"X-BackgroundUpload-File-UUID"];
     
     NSURLSessionTask *task = [self.session uploadTaskWithRequest:request fromFile:[NSURL fileURLWithPath:logFilePath]];
-    NSLogVerbose(@"BackgroundUploadLogFileManager: started uploading: %@", [self filePathForTask:task]); // test decoding header
+    NSLogVerbose(@"CompressingAndUploadingLogFileManager: started uploading: %@", [self filePathForTask:task]); // test decoding header
     task.taskDescription = logFilePath;
     [task resume];
-//    if ([self.delegate respondsToSelector:@selector(attemptingUploadForFilePath:)]) {
-//        [self.delegate attemptingUploadForFilePath:logFilePath];
-//    }
+    if ([self.delegate respondsToSelector:@selector(attemptingUploadForFilePath:)]) {
+	[self.delegate attemptingUploadForFilePath:logFilePath];
+    }
 }
 
 - (NSString *)filePathForTask:(NSURLSessionTask *)task
@@ -691,7 +691,7 @@
 
 - (void)URLSession:(NSURLSession *)session didBecomeInvalidWithError:(NSError *)error
 {
-    NSLogVerbose(@"BackgroundUploadLogFileManager: session: %@ didBecomeInvalidWithError: %@", session, error.localizedDescription);
+    NSLogVerbose(@"CompressingAndUploadingLogFileManager: session: %@ didBecomeInvalidWithError: %@", session, error.localizedDescription);
     [self setupSession];
 }
 
@@ -708,24 +708,24 @@
 
 - (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didCompleteWithError:(NSError *)error
 {
-    NSLogVerbose(@"BackgroundUploadLogFileManager: didCompleteWithError");
+    NSLogVerbose(@"CompressingAndUploadingLogFileManager: didCompleteWithError");
     
     [self uploadFilePath:[self filePathForTask:task] didCompleteWithError:error];
 }
 
 - (void)uploadFilePath:(NSString *)filePath didCompleteWithError:(NSError *)error
 {
-    NSLogVerbose(@"BackgroundUploadLogFileManager: upload: %@ didCompleteWithError: %@", filePath, error);
+    NSLogVerbose(@"CompressingAndUploadingLogFileManager: upload: %@ didCompleteWithError: %@", filePath, error);
     
     dispatch_async([DDLog loggingQueue], ^{ @autoreleasepool {
         if (!error) {
             NSError *deleteError;
             [[NSFileManager defaultManager] removeItemAtPath:filePath error:&deleteError];
             if (deleteError) {
-                NSLogVerbose(@"BackgroundUploadLogFileManager: Error deleting file %@: %@", filePath, deleteError);
+		NSLogError(@"CompressingAndUploadingLogFileManager: Error deleting file %@: %@", filePath, deleteError);
             }
             else{
-                 NSLogVerbose(@"BackgroundUploadLogFileManager: Error deleted file %@:", filePath);
+		 NSLogVerbose(@"CompressingAndUploadingLogFileManager: deleted file %@:", filePath);
             }
             if ([self.delegate respondsToSelector:@selector(uploadTaskForFilePath:didCompleteWithError:)]) {
                 [self.delegate uploadTaskForFilePath:filePath didCompleteWithError:nil];
