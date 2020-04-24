@@ -246,7 +246,7 @@
     NSLogVerbose(@"CompressingAndUploadingLogFileManager: compressionDidSucceed: %@", logFile.fileName);
     
     // at this point we want to upload logFile
-//    [self uploadArchivedFile:logFile];
+    [self uploadArchivedFile:logFile];
     self.isCompressing = NO;
     
     [self compressNextLogFile];
@@ -631,7 +631,7 @@
     task.taskDescription = logFilePath;
     [task resume];
     if ([self.delegate respondsToSelector:@selector(attemptingUploadForFilePath:)]) {
-	[self.delegate attemptingUploadForFilePath:logFilePath];
+        [self.delegate attemptingUploadForFilePath:logFilePath];
     }
 }
 
@@ -722,10 +722,10 @@
             NSError *deleteError;
             [[NSFileManager defaultManager] removeItemAtPath:filePath error:&deleteError];
             if (deleteError) {
-		NSLogError(@"CompressingAndUploadingLogFileManager: Error deleting file %@: %@", filePath, deleteError);
+                NSLogError(@"CompressingAndUploadingLogFileManager: Error deleting file %@: %@", filePath, deleteError);
             }
             else{
-		 NSLogVerbose(@"CompressingAndUploadingLogFileManager: deleted file %@:", filePath);
+                 NSLogVerbose(@"CompressingAndUploadingLogFileManager: deleted file %@:", filePath);
             }
             if ([self.delegate respondsToSelector:@selector(uploadTaskForFilePath:didCompleteWithError:)]) {
                 [self.delegate uploadTaskForFilePath:filePath didCompleteWithError:nil];
