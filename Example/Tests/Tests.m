@@ -6,43 +6,23 @@
 //  Copyright (c) 2020 jamesstout. All rights reserved.
 //
 
-// https://github.com/Specta/Specta
+#import <XCTest/XCTest.h>
+#import <Expecta/Expecta.h>
+@import Foundation;
+@import UIKit;
 
-SpecBegin(InitialSpecs)
+@interface CompressingAndUploadingLogFileManagerTests : XCTestCase
 
-describe(@"these will fail", ^{
+@end
 
-    it(@"can do maths", ^{
-        expect(1).to.equal(2);
-    });
+@implementation CompressingAndUploadingLogFileManagerTests
 
-    it(@"can read", ^{
-        expect(@"number").to.equal(@"string");
-    });
-    
-    it(@"will wait for 10 seconds and fail", ^{
-        waitUntil(^(DoneCallback done) {
-        
-        });
-    });
-});
+- (void)setUp {
+    // Put setup code here. This method is called before the invocation of each test method in the class.
+}
 
-describe(@"these will pass", ^{
-    
-    it(@"can do maths", ^{
-        expect(1).beLessThan(23);
-    });
-    
-    it(@"can read", ^{
-        expect(@"team").toNot.contain(@"I");
-    });
-    
-    it(@"will wait and succeed", ^{
-        waitUntil(^(DoneCallback done) {
-            done();
-        });
-    });
-});
+- (void)tearDown {
+    // Put teardown code here. This method is called after the invocation of each test method in the class.
+}
 
-SpecEnd
-
+@end
