@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'CompressingAndUploadingLogFileManager'
-  s.version          = '0.1.2'
+  s.version          = '0.1.3'
   s.summary          = 'Remote logging via NSURLSession transfer to upload compressed CocoaLumberjack logger logs to an HTTP server'
 
 # This description is used to generate tags and improve search results.
