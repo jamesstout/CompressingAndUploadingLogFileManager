@@ -8,17 +8,13 @@
 
 Pod::Spec.new do |s|
   s.name             = 'CompressingAndUploadingLogFileManager'
-  s.version          = '0.1.3'
+  s.version          = '0.1.4'
   s.summary          = 'Remote logging via NSURLSession transfer to upload compressed CocoaLumberjack logger logs to an HTTP server'
 
-# This description is used to generate tags and improve search results.
-#   * Think: What does it do? Why did you write it? What is the focus?
-#   * Try to keep it short, snappy and to the point.
-#   * Write the description between the DESC delimiters below.
-#   * Finally, don't worry about the indent, CocoaPods strips it!
-
   s.description      = <<-DESC
-A mashup of the example CompressingLogFileManager in CocoaLumberjack and BackgroundUpload-CocoaLumberjack: https://github.com/pushd/BackgroundUpload-CocoaLumberjack. Once the log file is compressed, it's uploaded to an HTTP server, the deleted.
+A mashup of the example CompressingLogFileManager in CocoaLumberjack and 
+BackgroundUpload-CocoaLumberjack: https://github.com/pushd/BackgroundUpload-CocoaLumberjack. 
+Once the log file is compressed, it's uploaded to an HTTP server, the deleted.
                        DESC
 
   s.homepage         = 'https://github.com/jamesstout/CompressingAndUploadingLogFileManager'
@@ -30,11 +26,7 @@ A mashup of the example CompressingLogFileManager in CocoaLumberjack and Backgro
   s.ios.deployment_target = '8.0'
 
   s.source_files = 'CompressingAndUploadingLogFileManager/Classes/**/*'
-  
-  # s.resource_bundles = {
-  #   'CompressingAndUploadingLogFileManager' => ['CompressingAndUploadingLogFileManager/Assets/*.png']
-  # }
-
   s.public_header_files = 'CompressingAndUploadingLogFileManager/Classes/**/*.h'
+  
   s.dependency 'CocoaLumberjack'
 end
